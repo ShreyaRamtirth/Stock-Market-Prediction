@@ -35,7 +35,6 @@ def getAllUsers(search):
             checking = stock_collection.find_one({ "user" : i['_id'] } )
             if checking:
                 r[-1]["search"] = checking["symbol"]
-    print(r)
     return r
 
 def get_user_count():
