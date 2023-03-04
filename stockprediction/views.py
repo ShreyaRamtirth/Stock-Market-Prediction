@@ -19,18 +19,20 @@ def analysis(request):
 	return render(request,'analysis.html', {'data': data})
 
 def predictValue(request):
-    temp = {}
-    if request.method == 'POST':
-        temp['stocksymbol'] = request.POST.get('stocksymbol')
-        start = pd.to_datetime('12-05-2020')
-        end = pd.to_datetime('12-05-2022')
-        df = get_df(temp['stocksymbol'], start , end)
-        response = get_plot(df,temp['stocksymbol'])
-        if request.user.is_authenticated:
-            add_search(temp['stocksymbol'], request)
-        txt = f'{response[1]}'
-        pred_value = txt.replace('[','').replace(']','')
-    return render(request,'analysis.html',{'chart': response[0], 'pred_price': pred_value})
+	temp = {}
+	if request.method == 'POST':
+		temp['stocksymbol'] = request.POST.get('stocksymbol')
+		start = pd.to_datetime('12-05-2020')
+		end = pd.to_datetime('12-05-2022')
+		print(temp['stocksymbol'])
+		df = get_df(temp['stocksymbol'], start , end)
+		response = get_plot(df,temp['stocksymbol'])
+		pred_value=''
+		if request.user.is_authenticated:
+			add_search(temp['stocksymbol'], request)
+		txt = f'{response[1]}'
+		pred_value = txt.replace('[','').replace(']','')
+		return render(request,'analysis.html',{'chart': response[0], 'pred_price': pred_value})
 
 def controlpanel(request):
 	search = ''

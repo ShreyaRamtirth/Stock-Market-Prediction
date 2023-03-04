@@ -6,17 +6,21 @@ from io import BytesIO
 import pandas as pd
 import numpy as np
 import pandas_datareader as web
+
 from sklearn.preprocessing import MinMaxScaler
 from keras.models import Sequential
 from keras.layers import Dense, LSTM
 from math import ceil
+from datetime import datetime
 
 
 
 
 
 def get_df(stockval, start , end):
-    df = web.DataReader(stockval, data_source="yahoo", start='12-05-2020', end ='12-05-2022' )
+    startDate=datetime(2020,5,12)
+    endDate=datetime(2023,1,31)
+    df = web.DataReader(stockval, data_source="stooq", start=startDate, end =endDate)
     return df
 
 
